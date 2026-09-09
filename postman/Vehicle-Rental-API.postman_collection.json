@@ -1,0 +1,395 @@
+{
+  "info": {
+    "name": "Vehicle-Rental-API",
+    "_postman_id": "b6f2a8b0-1c2d-4e3f-9a1b-vehicle-rental-001",
+    "description": "API collection for the Vehicle Rental Management System academic project.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "http://localhost:5000/api" },
+    { "key": "token", "value": "" },
+    { "key": "branchId", "value": "" },
+    { "key": "vehicleId", "value": "" },
+    { "key": "bookingId", "value": "" },
+    { "key": "addonId", "value": "" },
+    { "key": "customerId", "value": "" },
+    { "key": "userId", "value": "" }
+  ],
+  "item": [
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "Register (Customer)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{baseUrl}}/auth/register",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Jane Doe\",\n  \"email\": \"jane@example.com\",\n  \"password\": \"Jane@123\",\n  \"phone\": \"9123456780\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Login (Admin)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{baseUrl}}/auth/login",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"admin@rental.com\",\n  \"password\": \"Admin@123\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Login (Customer)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{baseUrl}}/auth/login",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"customer@rental.com\",\n  \"password\": \"Customer@123\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Login (Staff)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{baseUrl}}/auth/login",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"staff@rental.com\",\n  \"password\": \"Staff@123\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Get current user",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": "{{baseUrl}}/auth/me"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Branches",
+      "item": [
+        {
+          "name": "List branches",
+          "request": { "method": "GET", "url": "{{baseUrl}}/branches" }
+        },
+        {
+          "name": "Get branch by ID",
+          "request": { "method": "GET", "url": "{{baseUrl}}/branches/{{branchId}}" }
+        },
+        {
+          "name": "Create branch (Admin)",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "url": "{{baseUrl}}/branches",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Whitefield Branch\",\n  \"city\": \"Bengaluru\",\n  \"address\": \"22 Whitefield Main Road\",\n  \"phone\": \"9876500000\",\n  \"status\": \"ACTIVE\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Update branch (Admin)",
+          "request": {
+            "method": "PUT",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "url": "{{baseUrl}}/branches/{{branchId}}",
+            "body": { "mode": "raw", "raw": "{\n  \"phone\": \"9999999999\"\n}" }
+          }
+        },
+        {
+          "name": "Delete branch (Admin)",
+          "request": {
+            "method": "DELETE",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": "{{baseUrl}}/branches/{{branchId}}"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Vehicles",
+      "item": [
+        {
+          "name": "List vehicles",
+          "request": { "method": "GET", "url": "{{baseUrl}}/vehicles" }
+        },
+        {
+          "name": "Search available vehicles",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/vehicles/search?branchId={{branchId}}&type=CAR&startDate=2026-09-15&endDate=2026-09-18"
+          }
+        },
+        {
+          "name": "Get vehicle by ID",
+          "request": { "method": "GET", "url": "{{baseUrl}}/vehicles/{{vehicleId}}" }
+        },
+        {
+          "name": "Create vehicle (Admin)",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "url": "{{baseUrl}}/vehicles",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"registrationNumber\": \"KA05ZZ9999\",\n  \"type\": \"CAR\",\n  \"brand\": \"Honda\",\n  \"model\": \"City\",\n  \"year\": 2023,\n  \"perDayRate\": 1900,\n  \"branchId\": \"{{branchId}}\",\n  \"status\": \"AVAILABLE\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Update vehicle (Admin/Staff)",
+          "request": {
+            "method": "PUT",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "url": "{{baseUrl}}/vehicles/{{vehicleId}}",
+            "body": { "mode": "raw", "raw": "{\n  \"perDayRate\": 2000\n}" }
+          }
+        },
+        {
+          "name": "Delete vehicle (Admin)",
+          "request": {
+            "method": "DELETE",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": "{{baseUrl}}/vehicles/{{vehicleId}}"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Bookings",
+      "item": [
+        {
+          "name": "Create booking (Customer)",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "url": "{{baseUrl}}/bookings",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"vehicleId\": \"{{vehicleId}}\",\n  \"startDate\": \"2026-09-15\",\n  \"endDate\": \"2026-09-18\",\n  \"addOnIds\": [\"{{addonId}}\"]\n}"
+            }
+          }
+        },
+        {
+          "name": "Get bookings (role-scoped)",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": "{{baseUrl}}/bookings"
+          }
+        },
+        {
+          "name": "Get booking by ID",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": "{{baseUrl}}/bookings/{{bookingId}}"
+          }
+        },
+        {
+          "name": "Cancel booking (Customer)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": "{{baseUrl}}/bookings/{{bookingId}}/cancel"
+          }
+        },
+        {
+          "name": "Pickup inspection (Staff)",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "url": "{{baseUrl}}/bookings/{{bookingId}}/pickup",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"odometer\": 15230,\n  \"fuelLevel\": 90,\n  \"conditionNotes\": \"Clean, no visible damage\",\n  \"damageNotes\": \"\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Return inspection (Staff)",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "url": "{{baseUrl}}/bookings/{{bookingId}}/return",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"odometer\": 15410,\n  \"fuelLevel\": 40,\n  \"damageNotes\": \"Minor scratch on rear bumper\",\n  \"extraCharges\": 500\n}"
+            }
+          }
+        },
+        {
+          "name": "Customer rental history",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": "{{baseUrl}}/customers/{{customerId}}/bookings"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Add-ons",
+      "item": [
+        {
+          "name": "List add-ons",
+          "request": { "method": "GET", "url": "{{baseUrl}}/addons" }
+        },
+        {
+          "name": "Create add-on (Admin)",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "url": "{{baseUrl}}/addons",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Child Seat\",\n  \"description\": \"Rear-facing child safety seat\",\n  \"price\": 100,\n  \"isActive\": true\n}"
+            }
+          }
+        },
+        {
+          "name": "Update add-on (Admin)",
+          "request": {
+            "method": "PUT",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "url": "{{baseUrl}}/addons/{{addonId}}",
+            "body": { "mode": "raw", "raw": "{\n  \"price\": 350\n}" }
+          }
+        },
+        {
+          "name": "Delete add-on (Admin)",
+          "request": {
+            "method": "DELETE",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": "{{baseUrl}}/addons/{{addonId}}"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Reports (Admin)",
+      "item": [
+        {
+          "name": "Fleet utilization report",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": "{{baseUrl}}/admin/reports/utilization"
+          }
+        },
+        {
+          "name": "Revenue report",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": "{{baseUrl}}/admin/reports/revenue"
+          }
+        },
+        {
+          "name": "Dashboard summary",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": "{{baseUrl}}/admin/reports/dashboard"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Users (Admin)",
+      "item": [
+        {
+          "name": "List users",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": "{{baseUrl}}/users"
+          }
+        },
+        {
+          "name": "Get user by ID",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": "{{baseUrl}}/users/{{userId}}"
+          }
+        },
+        {
+          "name": "Create staff user (Admin)",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "url": "{{baseUrl}}/users",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"New Staff\",\n  \"email\": \"newstaff@rental.com\",\n  \"password\": \"Staff@123\",\n  \"phone\": \"9123450000\",\n  \"role\": \"BRANCH_STAFF\",\n  \"branchId\": \"{{branchId}}\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Update user (Admin)",
+          "request": {
+            "method": "PUT",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "url": "{{baseUrl}}/users/{{userId}}",
+            "body": { "mode": "raw", "raw": "{\n  \"isActive\": false\n}" }
+          }
+        },
+        {
+          "name": "Delete (deactivate) user (Admin)",
+          "request": {
+            "method": "DELETE",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": "{{baseUrl}}/users/{{userId}}"
+          }
+        }
+      ]
+    }
+  ]
+}
