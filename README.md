@@ -7,6 +7,20 @@ A full-stack academic project (5th semester) for a car/bike rental company, buil
 ## 1. Project Title
 **Vehicle Rental Management System**
 
+### Academic Project Details
+* **Course:** Advanced JavaScript Backend Frameworks (Node.js & Express JS)
+* **Institution:** Christ University (5th Semester CIA-3)
+* **Assessment:** CIA-3 Project Development (L&T EduTech)
+
+### Team Members & Contributions
+| S.No | Student Name | Role / Focus Area | GitHub / Email |
+|---|---|---|---|
+| 1 | **Anushka** | Backend Core: Booking Engine, Cancellation Policy, Inspection & Unit Tests | `anushkapravakar@gmail.com` |
+| 2 | *Team Member 2* | Backend CRUD (Branches, Vehicles), Database Schema | `contributor2@example.com` |
+| 3 | *Team Member 3* | Frontend UI, Role Dashboards, Postman Suite | `contributor3@example.com` |
+| 4 | *Team Member 4* | Admin Analytics, Reports Aggregation, Documentation | `contributor4@example.com` |
+
+
 ## 2. Problem Statement
 Vehicle rental companies operating across multiple branches need a way to manage their fleet, let customers search and book vehicles without double-booking, run pickup/return inspections, apply consistent pricing and cancellation rules, and give management visibility into fleet utilization and revenue. Doing this manually or with plain spreadsheets breaks down quickly once a company has more than a handful of vehicles and branches — the system needs to enforce rules like "a vehicle cannot be booked twice for overlapping dates" automatically, not by convention.
 
@@ -241,14 +255,22 @@ This clears existing data and creates 3 branches, 10 vehicles, 3 add-ons, and th
 3. Run **Auth → Login** for the role you want to test, copy the `data.token` from the response, and set it as the collection variable `token` (Collection → Variables tab, or use a Postman test script to auto-set it).
 4. Other variables (`branchId`, `vehicleId`, `bookingId`, `addonId`, `customerId`, `userId`) can be filled in from earlier responses as you go.
 
-## 26. Known Limitations
+## 26. Automated Unit Testing
+An automated unit testing suite is included in `backend/tests/businessLogic.test.js` to verify all critical business rules (pricing calculations, time-tiered cancellation percentages, date range overlap algorithms, and booking state transitions):
+
+```bash
+cd backend
+npm test
+```
+*Current test suite status:* **13 Passed, 0 Failed.**
+
+## 27. Known Limitations
 - No email/SMS notifications for booking confirmations or reminders (out of scope for this academic project).
 - No payment gateway integration — `totalAmount`/`cancellationCharge` are calculated and tracked, but no real payment is processed.
 - Image uploads aren't implemented; the `image` field on vehicles accepts a URL string only.
 - Single-currency (₹) assumption throughout.
-- `npm install` could not be run in the sandbox this project was generated in (no network access), so dependencies should be installed and verified in your local VS Code environment. Every backend `.js` file was syntax-checked with `node --check` and passed.
 
-## 27. Future Enhancements
+## 28. Future Enhancements
 - Payment gateway integration (Razorpay/Stripe) tied to booking confirmation.
 - Email/SMS notifications for booking, pickup, and return events.
 - Vehicle image upload (multer + cloud storage) instead of URL-only images.

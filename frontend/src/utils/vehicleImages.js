@@ -200,7 +200,7 @@ export const getVehicleImage = (
 };
 
 
-// ================================== Icecream tickem fra and driw air fry and dirnu new teachers day celebration====================
+// ======================================================
 // CATEGORY IMAGE
 // ======================================================
 
