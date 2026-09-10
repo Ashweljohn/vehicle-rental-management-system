@@ -1,4 +1,8 @@
 /**
+ * Centralized Error Handling Middleware
+ * Contributor: Anushka <anushkapravakar@gmail.com>
+ * Normalizes API errors into consistent JSON responses.
+ *
  * Custom application error class. Services/controllers throw this to
  * carry an HTTP status code and a machine-readable errorCode.
  */
