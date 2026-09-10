@@ -1,3 +1,8 @@
+/**
+ * Cancellation Policy Service
+ * Contributor: Anushka <anushkapravakar@gmail.com>
+ * Calculates time-tiered cancellation charges and refund amounts.
+ */
 const { hoursBetween } = require('../utils/dateUtils');
 const { AppError } = require('../middleware/errorHandler');
 

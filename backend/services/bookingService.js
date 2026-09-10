@@ -1,3 +1,8 @@
+/**
+ * Booking Service - Core Business Logic Engine
+ * Contributor: Anushka <anushkapravakar@gmail.com>
+ * Manages calendar availability, date overlap conflict detection, and state machine transitions.
+ */
 const mongoose = require('mongoose');
 const Booking = require('../models/Booking');
 const Vehicle = require('../models/Vehicle');
